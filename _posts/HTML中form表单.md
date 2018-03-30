@@ -1,0 +1,49 @@
+# form表单的作用及input标签
+***
+### form表单的作用
+填写用户信息，提交给后台。
+
+### 标签及属性
+input标签及属性
+
+| type属性值 | 含义 |
+| --- | --- |
+|text|文本 **用法**：```type="text" name="username"```|
+|password|密码 **用法**：```type="password" name="password" ```<br>```placeholder="输入密码"```|
+|checkbox|复选框 **用法**：```type="checkbox"name="hobby" value=‘read"/"name"```|
+|radio|单选框  **用法**：```type="radio" name="sex" value="男"/"女"```|
+|file|上传文件,**用法**： ```type="file" accep="image/gif" name="myfile"```|
+|hidden|隐藏，**用法**：```type="hidden" name="abcd" value="1235"```|
+|button|按钮  用法：```type="button" value="Button"```|
+|submit|提交 用法：```type="submit" value="Submit"```|
+|reset|重置 用法：```type="reset" value="Reset"```|
+其它标签及用法
+
+|标签|用法|
+|---|---|
+|lable|```<lable for="username">姓名</lable>```<br>```<input id="username" type="text" name="username">```<br> for和id连用，表示点击姓名就可以输入|
+|select|文本框，用于写入大段文字<br>`<select name="city">`<br>`<option value="beijing">`北京`</option>`<br>`<option value="shanghai">`上海`</option>`<br>`</select>`|
+|textarea|`<textarea name="article">`<br>aaa(输入框中默认显示)<br>`</textarea>`|
+|form|用法：```<form action="/abd" method="get/post"></form>```<br>action代表表单提交的地址，必须把表单用form包裹|
+
+附：1. name:提交到后台的索引，比如在复选框中都要设置成name="hobby"说明几个复选框都在爱好下。
+2.value:value在复选框和单选框中如果不设的话，则显示on不知道选的是哪个；value在text中可以设置默认值。
+3.单选框（radio）默认选中是checked;select标签默认选中是selected。
+4.**type=hidden隐藏域的作用**:
+>隐藏域是用来收集或发送信息不可见的元素，对于网页的访问者来说，隐藏域是看不见的。当表单被提交时，隐藏域就会将信息用你设置时定义的名称和值发送到服务器上。代码格式：```<input type="hidden" name="..." value="...">```。name属性定义隐藏域的名称，要保证数据的准确采集，必须定义一个独一无二的名称。value定义隐藏域的值。，其实说白了，就是从表中取值id值，或者别的变量值，但在页面中不显示。简单来说就是，想要提取上一页的某些信息，但在上一页又不能显示的这些东西就采用隐藏域。
+
+5.**name如何分组**：具有相同name属性radio为同一组: 
+
+```
+ <lable>性别</lable>
+ <input type="radio" name="sex" value="man">男
+ <input type="radio" name="sex" value="woman">女
+ <lable>取向</lable>
+ <input type="radio" name="sex1" value="man">男
+ <input type="radio" name="sex1" value="woman">女
+ ```
+### get和post的区别
+1. get获取的数据会附在url后（就是把数据放置在http协议的头中），以?分割url和传输数据，参数之间以&相连。post把提交的数据则放置在http包的包体中。
+2. get方式提交的数据最多只能是1024字节。而post没有限制，可以传输较大量的数据
+3. post的安全性比get的安全性要高。例如：通过get提交数据，用户名和密码将明文出现在url上，因为登录界面有可能被浏览器缓存，其他人查看浏览器的历史记录就可以拿到你的账户和密码了。
+另外，get是向服务器发送索取数据的一种请求，post是向服务器提交数据的一种请求。
