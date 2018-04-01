@@ -1,0 +1,135 @@
+---
+layout:     post
+title:      CSS补充
+subtitle:   CSS基础08
+date:       2018-04-01
+author:     sarah
+header-img: img/post-bg-debug.png
+catalog: true
+tags:
+    - CSS
+---
+- 绝对定位和清除浮动不能同时用。
+- clear属性只适用于块级元素。
+- css是艺术，注重的是练，写多了就会了。
+- width:100%要少用。
+- height:100%如果你设置宽度为width:100%,那这个元素的宽度会立即扩展到窗口的整个横向的宽度，但是高度设定为百分比时2，无法根据父元素的高度来进行计算自己的高度，所以要想高度铺满必须给它的父元素设定一个有效值，必须设定<body>和<html>高度为100%，但是如果你的元素实际高度大于设定的百分比高度，那元素的高度会自动扩展。
+- letter-spacing对于汉字是以一个字进行间隔的，对于英文是以一个字母进行间隔的。而word-spacing增减或减少单词的间距。
+- 多行文本溢出
+
+```
+.xxx{
+  display: -webkit-box;
+  -webkit-line-clamp:2;//如果是3行就设置成3
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+}
+```
+- 对于相邻的两个浮动元素，如果因为空间不够导致第二个浮动元素下移，可以通过给第二个浮动元素设置margin-left负值来让第二个元素上移，其中负值大于等于元素上移后和第一个元素重合的临界值。
+
+```
+<div class='ct'>
+  <ul>
+    <li class='item'>1</li>
+    <li class='item'>2</li>
+    <li class='item'>3</li>
+</ul>
+</div>
+```
+
+```
+ul li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ct{
+  overflow: hidden;
+  width:640px;
+  margin: 0 auto;
+}
+.ct .item{
+  float: left;
+  width: 200px;
+  height: 200px;
+  background: red;
+}
+```
+这是因为都是左浮动，且设定为-20px那么后面的元素会`.ct>ul{margin-left: -20px;}`认为前面的元素的宽度比原来的宽度缩短了20px（会导致重叠），但其实前面的元素不会影响，保持原有的宽度。
+- 特殊的块级元素只能包含内联元素，不能再包含块级元素：  
+h1-h6,p,dt  
+- 设置图片的大小，可以在外面包裹一个div，设置div的width，然后图片width:100%.
+- 布局的关键是div的嵌套和分割
+- 模态框=弹窗，特点：模态框和下面的文字之间有一层蒙版，即rgba(0,0,0.4)模态框是垂直绝对居中（自适应浏览器）
+- 优化代码：可以写多类选择器；可以用逗号隔开选择器，写其共有的样式。
+- 移动端：适配；加@import
+- 两个元素并列排列，设置它们之间的空隙，一般用width，而不是margin。
+- input[text]:focus{outline:none;}
+- 浮动元素有时只需和别的元素换位置(html)即可。
+- td和th是块级元素，只需定义宽高，左右padding。
+- 布局实战：先分析div(盒子)的嵌套关系，从整体到部分，从上到下，从左到右。
+- ie不支持transform:translate(-50%,-50%)
+- 面试技巧：具体化、分情况讨论。如说明文档流是什么可以这样回答。分为内联元素和块级元素和inline-block.内联元素如span，从左到右，宽度不够就换行。块级元素，从上到下排列，每个元素另起一行。inline-block还有display:table,等元素。  
+内联元素的宽（占地宽）由里面的内容决定，高度（占地高）不可设置，但是可以通过设置行高，还可以设置字体大小。块级元素宽度是父级元素内容区的宽度，高度由div里面的文档流的高度的总和，脱离文档流的元素不参与父元素的高度计算。inline-block不会折行断开（assd asd ....）宽可以设置width,内容决定宽度，可以white-space来控制换行。行高和font-size由文档流决定。
+- 里面有宽度，外面父元素就不用写宽度，少写宽度。
+- 命名原则：要成块命名，一个区块的内容由一个名字开头如topbar,其内容就要以topbar开头。   
+命名精准，不要缩写（猜官网的命名）  
+最小影响原则。不能直接写div，而是写其class的名称；不能直接写container，而是加前缀，如gobal-container或者写成#topbar>.container(加父级元素)；嵌套不要超过5层，用名字的长度代替。
+- IE一般支持ie8以上，如果要做兼容的话就是浮动布局或者flex布局。
+- 除了div以外，大部分标签都有Margin,如p/h。  
+margin:0 auto，使用时要加width。  
+做效果时先看看是否是a链接。
+并不是设置了margin元素间就哟缝隙，应注意垂直方向和父子元素的外边就合并问题。  
+涉及元素的padding和margin要加border，方便看清楚元素之间的关系。
+- 有默认Margin,padding值的元素：body水平垂直方向默认有10px的margin的值。   
+p/ul/ol/dl垂直方向默认有20px的margin值  
+dd标签在水平方向默认有40px的margin值  
+ul/ol标签水平方向默认有40px的padding值  
+- 伪类与伪元素  
+伪类：用于已有元素处于某个状态时，为其添加对应的样式，这个状态是根据用户行为而动态变化。   
+h1:first-child:选择是h1并且它是长子元素。  
+h1:first-of-type:选择是h1并且它是父亲里h1类型中的长子元素。    
+伪元素：用于创建一些不在文档树中的元素，并为其添加样式，before/after可以写单、双引号。
+   清除浮动：element:before在element内部创建了一个行内元素，作为element的第一个孩子。用before、after的目的是为了省标签，其中content是必不可少的。要抽象成class不用父元素：after这种写法。
+- vertical-align:middle。
+
+```
+<div class='box middle'>
+  <img src=''>
+</div> 
+.box{
+  width: 300px;
+  height: 200px;
+  border: 1px solid;
+} 
+.middle{
+  text-align: center;
+}
+.middle:befor{
+  content:'';
+  display: inline-block;
+  vertical-align: middle;
+}
+.box img{
+  vertical-align: middle;
+}
+```
+为什么上例中只在图片上设置vertical-align不生效？  
+因为content里的内容是内联元素和图片处于同一个line-box,当content的高度设置成100%的时候，就把高度撑起来了，由于line box的高度由内容决定，所以content的高度和line box的高度相同，而且vertical-align的对齐基于line box，又因为行内元素的基线相对于该元素所在行的基线垂直对齐（假设有两个行内元素a和b，当a加了一个vertical-align：middle样式之后b的底部（基线）就会对齐a的中间位置）所以两个元素都要设置vertical-align:middle。
+- 小数不用写前缀。如0.5s—.5s；0不用加单位。可参考bootstrap编写规范。codeguide.bootcss.com/google.github.io/style.guide(htmlcssguide.heml)
+- ie8不支持flex布局。
+- 多类选择器：如果设置的两个类属性有冲突的话，后设置的有用。
+- 绝对定位宽度是收缩的，如果想要撑满父容器可以设置width:100%，当父容器里有绝对定位的子元素时，子元素设置width：100%，实际上指的是相对于父容器对的padding+content的宽度，当子元素是非绝对定位的元素是width:100%才是指子元素的content等于父元素content的宽度。
+- 审查里面3d视角看页面的层叠性。
+- 重构：clean code/conding standard/代码大全
+- .clearfix{*zoom:1;}触发ie6和ie7的haslayout生成类似BFC的作用
+- 每条BFC属性都有其自身的特性，当用的时候看额外的效果是否是自己想要的，一般来说overflow:hidden/auto是最小的但是overflow会影响滚动条和绝对定位元素。
+- 学习CSS的方法：临摹学习法。首先找到好的示例然后用开发者工具分析其次抄代码最后删代码重写。
+- cssicon.space
+- transform:rotate(45deg)
+- class选择器从右往左理解
+- target用法：:target{background:red;}(被选中的变为红色)
+- css icon: http://cssicon.space
+- 盒模型：width height设置的是content的宽高。ie盒模型：content+padding+border，ie6/7/8怪异模式（不加poctype）时用ie盒模型。
+- 学完css后再学less和sess
+- width和max-width:width是当页面宽度小于560px的时候出现滚动条。但是，max-width是当页面宽度小于560px就是其真实的宽度，没有滚动条。
